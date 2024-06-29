@@ -1,0 +1,155 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities; 
+
+
+@font-face {
+  font-family: 'Telkom123-Light';
+  src: url('/fonts/Telkom123-Light/Telkom123-Light.eot');
+  src: url('/fonts/Telkom123-Light/Telkom123-Light.eot?#iefix') format('embedded-opentype'),
+      url('/fonts/Telkom123-Light/Telkom123-Light.woff2') format('woff2'),
+      url('/fonts/Telkom123-Light/Telkom123-Light.woff') format('woff');  
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Telkom123-Bold';
+  src: url('/fonts/Telkom123-Bold/Telkom123-Bold.eot');
+  src: url('/fonts/Telkom123-Bold/Telkom123-Bold.eot?#iefix') format('embedded-opentype'),
+      url('/fonts/Telkom123-Bold/Telkom123-Bold.woff2'),
+      url('/fonts/Telkom123-Bold/Telkom123-Bold.woff') format('woff');  
+  font-display: swap;
+}
+@font-face {
+  font-family: 'Telkom123-Regular';
+  src: url('/fonts/Telkom123-Regular/Telkom123-Regular.eot');
+  src: url('/fonts/Telkom123-Regular/Telkom123-Regular.eot?#iefix') format('embedded-opentype'),
+      url('/fonts/Telkom123-Regular/Telkom123-Regular.woff2') format('woff2'),
+      url('/fonts/Telkom123-Regular/Telkom123-Regular.woff') format('woff');  
+  font-display: swap;
+}
+ 
+body {
+  background-color: #E6F0F7;
+  background-image: "radial-gradient(151.8% 317.3% at 80.67% 42.96%, rgba(0, 143, 224, 0) 0%, rgba(0, 143, 224, 0.0209563) 60.12%, rgba(0, 143, 224, 0.045) 100%), linear-gradient(311.43deg, rgba(230, 240, 248, 0.3) -10.91%, rgba(230, 242, 250, 0.15) 17.92%, rgba(155, 221, 251, 0.3) 87.24%)";
+  color: #3C5564;
+  font-family: "Telkom123-Regular";
+  font-weight: 100;
+ }
+ html {
+   scroll-behavior: smooth;
+ }
+
+ .product-group-active {
+  background: rgba(181, 0, 115, 0.1);
+  border: 1px solid #B50073;
+  color: #B50073;
+ }
+
+ .rica-product-cards {
+  background: #FFFFFF;
+  box-shadow: 6px 10px 60px rgba(136, 138, 155, 0.2);
+  border-radius: 10px;
+  padding:20px;
+  cursor:pointer
+ }
+
+ .rica-product-cards-active {
+  background: #E199C70D; 
+  border: 1px solid #B50073;
+  box-shadow: 6px 10px 60px rgba(136, 138, 155, 0.2);
+  border-radius: 10px;
+ }
+ .rica-btn-inactive {
+  background: #7E939C;
+  box-shadow: 2px 4px 16px rgba(8, 45, 108, 0.2);
+  border-radius: 5px;
+  font-family: Telkom123-Light, sans-serif;
+  padding: 10px 30px;
+  font-size: 14px;
+  text-align: center;
+  color:#FFFFFF;
+  min-width: 120px;
+  line-height: 20px;
+  min-height: 44px;
+
+ }
+
+ .rica-btn-active {
+  background: #C4338F;
+  box-shadow: 2px 4px 16px rgba(8, 45, 108, 0.2);
+  border-radius: 5px;
+  font-family: Telkom123-Light, sans-serif;
+  padding: 10px 30px;
+  font-size: 14px;
+  text-align: center;
+  color:#FFFFFF;
+  min-width: 120px;
+  line-height: 20px;
+  min-height: 44px;
+
+ }
+
+ .rica-otp-fields {
+  width: 44px;
+  height: 50px;
+  background: #FFFFFF;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  text-align: center;
+  box-shadow: 0px 0px 55px rgba(0, 0, 0, 0.1);
+  border-radius: 6px;
+  font-weight: 300;
+  font-size: 21px;
+  line-height: 130%;
+  color: #7E939C;
+  outline: #FFFFFF;
+ }
+ 
+.modal-footer {
+  background: #FFFFFF;
+  box-shadow: 0px 8px 50px rgba(8, 45, 108, 0.2);
+  padding: 20px 0px; 
+}
+
+.header-shadow {
+  -webkit-box-shadow: 0px 2px 10px rgba(1, 39, 47, 0.05);
+  -moz-box-shadow: 0px 2px 10px rgba(1, 39, 47, 0.05);
+  box-shadow: 0px 2px 10px rgba(1, 39, 47, 0.05);
+}
+
+.card-shadow{
+  box-shadow: 2px 4px 16px rgba(8, 45, 108, 0.2);
+  padding: 5px 5px; 
+}
+
+.rotated-180 {
+  transform: rotate(180deg);
+}
+
+.selected-card {
+  border-color: #B50073;
+  border-radius: 5px;
+  background:#E199C70D;
+  color: #3C5564;
+}
+
+.suggestion-container{
+  display: flex;
+  flex-direction: column;
+  -webkit-box-align: center;
+  font-size: 15px;
+  background: rgb(255, 255, 255);
+  min-width: 30vw;
+  width: 35vw;
+  position: absolute;
+  top: 30%;
+}
+
+@media screen and (max-width: 768px) {
+  .suggestion-container {
+    width: 100%;
+  }
+}
+
