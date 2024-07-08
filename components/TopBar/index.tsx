@@ -23,24 +23,24 @@ const TopBar: React.FC<{}> = () => {
         setIsQuickMenuVisible(!isQuickMenuVisible);
     };
 
-    const handleLogout = async () => {
-        try {
-            const response = await fetch('/api/logout', {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json',
-                },
-            });
-            if (response.ok) {
-                setUser(null); // Clear user context
-                router.push("/login");
-            } else {
-                console.error('Logout failed');
-            }
-        } catch (error) {
-            console.error('Error during logout:', error);
-        }
-    };
+    // const handleLogout = async () => {
+    //     try {
+    //         const response = await fetch('/api/logout', {
+    //             method: 'POST',
+    //             headers: {
+    //                 'Content-Type': 'application/json',
+    //             },
+    //         });
+    //         if (response.ok) {
+    //             setUser(null); // Clear user context
+    //             router.push("/login");
+    //         } else {
+    //             console.error('Logout failed');
+    //         }
+    //     } catch (error) {
+    //         console.error('Error during logout:', error);
+    //     }
+    // };
 
     const getActiveClass = (path: string) => {
         return router.pathname === path ? 'border-b-4 border-[#3D84A8]' : '';
@@ -65,13 +65,13 @@ const TopBar: React.FC<{}> = () => {
                         {user ? (
                             <div>
                                 Welcome, {user.name} {user.surname} 😊
-                                <button onClick={handleLogout} className="ml-4 text-red-600 hover:text-red-800">Logout</button>
+                                {/* <button onClick={handleLogout} className="ml-4 text-[#3D84A8] hover:text-red-800">Logout</button> */}
                             </div>
                         ) : (
                             <div>
-                                <button onClick={() => router.push("/login")}>
+                                {/* <button onClick={() => router.push("/login")}>
                                     Log in
-                                </button>
+                                </button> */}
                             </div>
                         )}
                     </div>

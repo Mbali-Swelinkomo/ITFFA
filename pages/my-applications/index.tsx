@@ -19,7 +19,9 @@ const MyApplications: React.FC = () => {
     const fetchApplications = async () => {
       if (user && user.email) {
         try {
-          const response = await fetch(`http://localhost:8080/api/my-applications?email=${user.email}`);
+          const response = await fetch(`http://localhost:8080/api/my-applications`, {
+            credentials: 'include' // Ensure cookies are included in the request
+          });
           const data: Application[] = await response.json();
           setApplications(data);
         } catch (error) {

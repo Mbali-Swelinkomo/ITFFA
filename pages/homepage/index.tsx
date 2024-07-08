@@ -43,18 +43,26 @@ const CourseCard: React.FC<{image: string, date: string, location: string, type:
 
 const HomePageMainSection: React.FC<{}> = () => {
   const router = useRouter();
-  const { setUser } = useContext(AppContext);
+  const { user, setUser } = useContext(AppContext);
+  console.log(user)
 
   useEffect(() => {
     const fetchUser = async () => {
       try {
-        const response = await fetch("http://localhost:8080/api/user");
+        const response = await fetch("http://localhost:8080/api/user", {
+          credentials: 'include' // Ensure cookies are included in the request
+        });
         const data = await response.json();
-        setUser(data.user); // Assuming the API returns the user data
+        if (response.ok) {
+          setUser(data.user); // Assuming the API returns the user data
+        } else {
+          console.error("Failed to fetch user:", data.message);
+        }
       } catch (error) {
         console.error("Failed to fetch user:", error);
       }
     };
+    
 
     fetchUser();
   }, [setUser]);

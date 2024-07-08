@@ -43,7 +43,7 @@ const Footer: React.FC<{}> = () => {
 
                     </div>
                     <div className="grid grid-cols-1 gap-4 mt-8 text-white">
-                        <ul className="flex flex-col md:flex-row">
+                        {/* <ul className="flex flex-col md:flex-row">
                             {topMenu.map((item, index) =>(
                                 <li  className="mx-0 mb-3 first:ml-0 md:mx-6 md:mb-0"  key={index}>
                                     <Link href={item.url}>
@@ -63,7 +63,7 @@ const Footer: React.FC<{}> = () => {
                                     </Link>
                                 </li>
                             ))}
-                        </ul>
+                        </ul> */}
                         <h3 className="font-TelkomLight">Copyright © 2024 JobConnect</h3>
 
                     </div>

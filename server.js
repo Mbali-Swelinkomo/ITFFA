@@ -8,6 +8,13 @@ const bcrypt = require('bcrypt');
 require('dotenv').config();
 const app = express();
 const port = 8080;
+const cors = require('cors');
+
+// CORS configuration
+app.use(cors({
+  origin: 'http://localhost:3001', // Replace with your client-side origin
+  credentials: true
+}));
 
 // Middleware to parse JSON bodies
 app.use(bodyParser.json());
@@ -55,6 +62,36 @@ app.use(
     cookie: { secure: false } // Set to true if using HTTPS
   })
 );
+
+// Endpoint to get user details
+app.get('/api/user', async (req, res) => {
+  const userEmail = req.session.userEmail; // Assuming user email is stored in session
+
+  console.log('Session ID:', req.session.id); // Debugging line
+  console.log('Session Data:', req.session); // Debugging line
+
+  if (!userEmail) {
+    console.log('Unauthorized access attempt - No session email'); // Debugging line
+    return res.status(401).json({ message: 'Unauthorized', status: 401 });
+  }
+
+  try {
+    const query = 'SELECT id, name, surname, email FROM users WHERE email = $1';
+    const values = [userEmail];
+
+    const result = await pool.query(query, values);
+    const user = result.rows[0];
+
+    if (!user) {
+      return res.status(404).json({ message: 'User not found', status: 404 });
+    }
+
+    res.status(200).json({ user, status: 200 });
+  } catch (error) {
+    console.error('Error fetching user:', error);
+    res.status(500).json({ message: 'Error fetching user', status: 500 });
+  }
+});
 
 // Endpoint to handle root URL
 app.get('/', (req, res) => {
@@ -120,6 +157,7 @@ app.post('/api/create-account', async (req, res) => {
   }
 });
 
+
 // Endpoint to login
 app.post('/api/login', async (req, res) => {
   const { email, password } = req.body;
@@ -133,6 +171,7 @@ app.post('/api/login', async (req, res) => {
 
       if (match) {
         req.session.userEmail = user.email; // Store user email in session
+        console.log('Session after login:', req.session); // Debugging line
         res.status(200).send({ name: user.name, surname: user.surname, email: user.email });
       } else {
         res.status(401).send('Invalid credentials');
@@ -150,6 +189,9 @@ app.post('/api/login', async (req, res) => {
 // Endpoint to get user applications
 app.get('/api/my-applications', async (req, res) => {
   const userEmail = req.session.userEmail; // Use the email stored in session
+
+  console.log('Session ID:', req.session.id); // Debugging line
+  console.log('Session Data:', req.session); // Debugging line
 
   if (!userEmail) {
     console.log('Unauthorized access attempt - No session email'); // Debugging line
@@ -173,35 +215,7 @@ app.get('/api/my-applications', async (req, res) => {
   }
 });
 
-// Endpoint to get user details
-app.get('/api/user', async (req, res) => {
-  const userEmail = req.session.userEmail; // Assuming user email is stored in session
 
-  console.log('Session ID:', req.session.id); // Debugging line
-  console.log('Session Data:', req.session); // Debugging line
-
-  if (!userEmail) {
-    console.log('Unauthorized access attempt - No session email'); // Debugging line
-    return res.status(401).json({ message: 'Unauthorized', status: 401 });
-  }
-
-  try {
-    const query = 'SELECT id, name, surname, email FROM users WHERE email = $1';
-    const values = [userEmail];
-
-    const result = await pool.query(query, values);
-    const user = result.rows[0];
-
-    if (!user) {
-      return res.status(404).json({ message: 'User not found', status: 404 });
-    }
-
-    res.status(200).json({ user, status: 200 });
-  } catch (error) {
-    console.error('Error fetching user:', error);
-    res.status(500).json({ message: 'Error fetching user', status: 500 });
-  }
-});
 
 // Endpoint to logout
 app.post('/api/logout', (req, res) => {
