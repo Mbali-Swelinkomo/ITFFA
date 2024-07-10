@@ -77,8 +77,8 @@ const HomePageMainSection: React.FC<{}> = () => {
       <div style={{ backgroundColor: 'white' }}>
       <div className="flext lg:h-[600px] w-full bg-[url('/images/homepageBanner.jpg')] lg:bg-[url('/images/homepageBanner.jpg')] px-[0px] lg:px-[35px] pt-[40px] lg:py-[80px]">
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-4 items-center justify-center">
-        <div className="text-center mx-auto my-[80px] lg:pt-[150px] lg:pl-20">
-          <h2 className="font-TelkomLight font-[500] text-[22px] lg:text-[40px] leading-[24px] lg:leading-[52px] text-white font-semibold mb-5">
+        <div className="text-center mx-auto my-[80px] lg:pt-[120px] lg:pl-20">
+          <h2 className="font-TelkomLight font-[500] text-[22px] lg:text-[60px] leading-[24px] lg:leading-[52px] text-white font-semibold mb-5">
             Welcome to JobConnect
           </h2>
           <p className="mb-2 text-[14px] lg:text-[18px] text-white font-TelkomLight">
@@ -103,7 +103,7 @@ const HomePageMainSection: React.FC<{}> = () => {
             <p className="text-[20px] leading-[22px] font-TelkomLight font-[500] lg:text-[40px] mb-10 font-semibold">About Us</p>
           </div>
           <p className="lg:mt-10 text-[14px] lg:text-[18px] font-TelkomLight mb-2">
-            JobConnect aims to bridge the gap between job seekers and employers by providing a dynamic, efficient, and secure web-based platform. <br />
+            JobConnect aims to bridge the gap between job seekers and employers by providing a dynamic, efficient, and secure web-based platform. 
             By focusing on usability, security, and performance, JobConnect will create a seamless job application experience for users while enabling employers 
             to effectively manage their job postings and applications.
             <br></br>

@@ -23,24 +23,24 @@ const TopBar: React.FC<{}> = () => {
         setIsQuickMenuVisible(!isQuickMenuVisible);
     };
 
-    // const handleLogout = async () => {
-    //     try {
-    //         const response = await fetch('/api/logout', {
-    //             method: 'POST',
-    //             headers: {
-    //                 'Content-Type': 'application/json',
-    //             },
-    //         });
-    //         if (response.ok) {
-    //             setUser(null); // Clear user context
-    //             router.push("/login");
-    //         } else {
-    //             console.error('Logout failed');
-    //         }
-    //     } catch (error) {
-    //         console.error('Error during logout:', error);
-    //     }
-    // };
+    const handleLogout = async () => {
+        try {
+            const response = await fetch('http://localhost:8080/api/logout', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+            });
+            if (response.ok) {
+                setUser(null); // Clear user context
+                router.push("/login");
+            } else {
+                console.error('Logout failed');
+            }
+        } catch (error) {
+            console.error('Error during logout:', error);
+        }
+    };
 
     const getActiveClass = (path: string) => {
         return router.pathname === path ? 'border-b-4 border-[#3D84A8]' : '';
@@ -61,17 +61,17 @@ const TopBar: React.FC<{}> = () => {
                         <Link href="/career-advice" className={`text-lg text-gray-700 hover:text-gray-900 ${getActiveClass('/career-advice')}`}>Career Advice</Link>
                         <Link href="/my-applications" className={`text-lg text-gray-700 hover:text-gray-900 ${getActiveClass('/my-applications')}`}>My Applications</Link>
                     </div>
-                    <div className="lg:top-bar">
+                    <div className="hidden lg:block lg:top-bar">
                         {user ? (
                             <div>
                                 Welcome, {user.name} {user.surname} 😊
-                                {/* <button onClick={handleLogout} className="ml-4 text-[#3D84A8] hover:text-red-800">Logout</button> */}
+                                <button onClick={handleLogout} className="ml-4 text-[#3D84A8] hover:text-red-800">Logout</button>
                             </div>
                         ) : (
                             <div>
-                                {/* <button onClick={() => router.push("/login")}>
+                                <button onClick={() => router.push("/login")}>
                                     Log in
-                                </button> */}
+                                </button>
                             </div>
                         )}
                     </div>
@@ -90,9 +90,22 @@ const TopBar: React.FC<{}> = () => {
                                 id="menu" style={{ zIndex: menuZIndex }}>
                                 <div className="flex justify-end px-4 mb-2">
                                 </div>
+                                {user ? (
+                                    <div className="block px-4 py-3">
+                                        Welcome, {user.name} {user.surname} 😊
+                                        <button onClick={handleLogout} className="hidden lg:inline-block ml-4 text-[#3D84A8] hover:text-red-800">Logout</button>
+                                    </div>
+
+                        ) : (
+                            <div>
+                                <button onClick={() => router.push("/login")}>
+                                    Log in
+                                </button>
+                            </div>
+                        )}
                                 {/* Quick Menu */}
                                 <Link
-                                    href="/"
+                                    href="/homepage"
                                     onClick={handleClickAndCLose}
                                     className="block px-4 py-3 text-secondary-blue-grey leading-[20px] text-[14px] font-Telkom123-Light py[14px] flex justify-between items-center hover:bg-indigo-500"
                                 >
@@ -127,6 +140,31 @@ const TopBar: React.FC<{}> = () => {
                                         alt="Chevron Right"
                                     />
                                 </Link>
+                                <Link
+                                    href="/my-applications"
+                                    onClick={handleClickAndCLose}
+                                    className="block px-4 py-3 text-secondary-blue-grey leading-[20px] text-[14px] font-Telkom123-Light py[14px] flex justify-between items-center hover:bg-indigo-500"
+                                >
+                                    <span>My Applications</span>
+                                    <img
+                                        className="ml-2"
+                                        src="/images/icons/right.svg"
+                                        alt="Chevron Right"
+                                    />
+                                </Link>
+                                <Link
+                                    href="/logout"
+                                    onClick={(e) => { handleClickAndCLose(); handleLogout(); }}
+                                    className="block px-4 py-3 text-secondary-blue-grey leading-[20px] text-[14px] font-Telkom123-Light py[14px] flex justify-between items-center hover:bg-indigo-500"
+                                >
+                                    <span>Logout</span>
+                                    <img
+                                        className="ml-2"
+                                        src="/images/icons/right.svg"
+                                        alt="Chevron Right"
+                                    />
+                                </Link>
+
                             </div>
                         )}
                     </div>

@@ -12,7 +12,7 @@ const cors = require('cors');
 
 // CORS configuration
 app.use(cors({
-  origin: 'http://localhost:3001', // Replace with your client-side origin
+  origin: 'http://localhost:3000', // Replace with your client-side origin
   credentials: true
 }));
 
@@ -150,13 +150,21 @@ app.post('/api/create-account', async (req, res) => {
     const values = [name, surname, email, hashedPassword];
 
     await pool.query(query, values);
-    res.status(201).json({ message: 'Account created successfully', status: 201 });
+
+    // Set the user email in the session
+    req.session.userEmail = email;
+    req.session.save((err) => {
+      if (err) {
+        console.error('Error saving session:', err);
+        return res.status(500).json({ message: 'Error creating account', status: 500 });
+      }
+      res.status(201).json({ message: 'Account created successfully', status: 201 });
+    });
   } catch (error) {
     console.error('Error creating account:', error);
     res.status(500).json({ message: 'Error creating account', status: 500 });
   }
 });
-
 
 // Endpoint to login
 app.post('/api/login', async (req, res) => {
@@ -171,8 +179,14 @@ app.post('/api/login', async (req, res) => {
 
       if (match) {
         req.session.userEmail = user.email; // Store user email in session
-        console.log('Session after login:', req.session); // Debugging line
-        res.status(200).send({ name: user.name, surname: user.surname, email: user.email });
+        req.session.save((err) => {
+          if (err) {
+            console.error('Error saving session:', err);
+            return res.status(500).send('Error logging in');
+          }
+          console.log('Session after login:', req.session); // Debugging line
+          res.status(200).send({ name: user.name, surname: user.surname, email: user.email });
+        });
       } else {
         res.status(401).send('Invalid credentials');
       }
@@ -184,7 +198,6 @@ app.post('/api/login', async (req, res) => {
     res.status(500).send('Error logging in');
   }
 });
-
 
 // Endpoint to get user applications
 app.get('/api/my-applications', async (req, res) => {
@@ -215,8 +228,6 @@ app.get('/api/my-applications', async (req, res) => {
   }
 });
 
-
-
 // Endpoint to logout
 app.post('/api/logout', (req, res) => {
   if (req.session) {
@@ -231,8 +242,6 @@ app.post('/api/logout', (req, res) => {
     res.status(400).json({ message: 'No session to destroy' });
   }
 });
-
-
 
 // Start the server
 app.listen(port, () => {
