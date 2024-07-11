@@ -70,7 +70,7 @@ const CreateAccount: React.FC = () => {
         // Account created successfully
         const user = await response.json();
         setUser(user); // Assuming setUser function updates the context with the user
-        router.push("/homepage"); // Redirect to homepage
+        router.push("/login"); // Redirect to homepage
       } else {
         setSuccessAlertData({
           title: 'Oops!',
